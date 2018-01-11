@@ -10,11 +10,11 @@ import java.util.ArrayList;
 public class NumbersToString extends AbstractNumbers {
     private static final int GROUP_SIZE = 3;
     private FileReader fileReader = new FileReader();
-    private ArrayList<String> EDINICHI = new ArrayList<>();
-    private ArrayList<String> DESYAT = new ArrayList<>();
-    private ArrayList<String> DESYATKI = new ArrayList<>();
-    private ArrayList<String> SOTNI = new ArrayList<>();
-    private ArrayList<String> LIONS = new ArrayList<>();
+    private ArrayList<String> units = new ArrayList<>();
+    private ArrayList<String> ten = new ArrayList<>();
+    private ArrayList<String> decades = new ArrayList<>();
+    private ArrayList<String> hundreds = new ArrayList<>();
+    private ArrayList<String> zeros = new ArrayList<>();
 
     /**
      * set fields from txt file
@@ -29,59 +29,59 @@ public class NumbersToString extends AbstractNumbers {
         for (int j = 0; j < s1.length(); j++) {
             if (s1.charAt(j) == ',') {
                 if (j > i) {
-                    EDINICHI.add(s1.substring(i, j));
+                    units.add(s1.substring(i, j));
                 }
                 i = j + 1;
             }
         }
         if (i < s1.length()) {
-            EDINICHI.add(s1.substring(i));
+            units.add(s1.substring(i));
         }
 
         for (int j = 0; j < s2.length(); j++) {
             if (s2.charAt(j) == ',') {
                 if (j > i) {
-                    DESYAT.add(s2.substring(i, j));
+                    ten.add(s2.substring(i, j));
                 }
                 i = j + 1;
             }
         }
         if (i < s2.length()) {
-            DESYAT.add(s2.substring(i));
+            ten.add(s2.substring(i));
         }
 
         for (int j = 0; j < s3.length(); j++) {
             if (s3.charAt(j) == ',') {
                 if (j > i) {
-                    DESYATKI.add(s3.substring(i, j));
+                    decades.add(s3.substring(i, j));
                 }
                 i = j + 1;
             }
         }
         if (i < s3.length()) {
-            DESYATKI.add(s3.substring(i));
+            decades.add(s3.substring(i));
         }
         for (int j = 0; j < s4.length(); j++) {
             if (s4.charAt(j) == ',') {
                 if (j > i) {
-                    SOTNI.add(s4.substring(i, j));
+                    hundreds.add(s4.substring(i, j));
                 }
                 i = j + 1;
             }
         }
         if (i < s4.length()) {
-            SOTNI.add(s4.substring(i));
+            hundreds.add(s4.substring(i));
         }
         for (int j = 0; j < s5.length(); j++) {
             if (s5.charAt(j) == ',') {
                 if (j > i) {
-                    LIONS.add(s5.substring(i, j));
+                    zeros.add(s5.substring(i, j));
                 }
                 i = j + 1;
             }
         }
         if (i < s5.length()) {
-            LIONS.add(s5.substring(i));
+            zeros.add(s5.substring(i));
         }
     }
 
@@ -95,7 +95,7 @@ public class NumbersToString extends AbstractNumbers {
 
     private String formatImpl(String text) {
         if ("0".equals(text)) {
-            return EDINICHI.get(0);
+            return units.get(0);
         }
         StringBuilder sb = new StringBuilder();
         if (text.startsWith("-")) {
@@ -115,14 +115,14 @@ public class NumbersToString extends AbstractNumbers {
                 continue;
             }
             if (h > 0) {
-                String sotni = SOTNI.get(h);
-                sb.append(sotni);
+                String hundreds = this.hundreds.get(h);
+                sb.append(hundreds);
                 sb.append(" ");
             }
             if (t == 0) {
                 //
                 if (u > 0) {
-                    String txt = EDINICHI.get(u);
+                    String txt = units.get(u);
                     if (k == 1) {
                         switch (u) {
                             case 1:
@@ -138,33 +138,33 @@ public class NumbersToString extends AbstractNumbers {
                 }
                 //
             } else if (t == 1) {
-                sb.append(DESYAT.get(u));
+                sb.append(ten.get(u));
                 sb.append(" ");
             } else if (t > 1) {
-                sb.append(DESYATKI.get(t));
+                sb.append(decades.get(t));
                 if (u > 0) {
                     sb.append(" ");
-                    String ed = EDINICHI.get(u);
+                    String units = this.units.get(u);
                     if (k == 1) {
                         switch (u) {
                             case 1:
-                                ed = "одна";
+                                units = "одна";
                                 break;
                             case 2:
-                                ed = "две";
+                                units = "две";
                                 break;
                             default:
                         }
                     }
-                    sb.append(ed);
+                    sb.append(units);
                 }
                 sb.append(" ");
             }
             if (k > 0 && (h + t + u > 0)) {
                 if (k == 1) {
-                    sb.append(tisyachi(h, t, u));
+                    sb.append(thousands(t, u));
                 } else {
-                    sb.append(lions(h, t, u, k));
+                    sb.append(zeros(t, u, k));
                 }
                 sb.append(" ");
             }
@@ -172,9 +172,9 @@ public class NumbersToString extends AbstractNumbers {
         return sb.toString().trim();
     }
 
-    private String lions(int h, int t, int u, int k) {
+    private String zeros(int t, int u, int k) {
         StringBuilder sb = new StringBuilder();
-        sb.append(LIONS.get(k));
+        sb.append(zeros.get(k));
 
         if (t == 0 || t > 1) {
             switch (u) {
@@ -197,7 +197,7 @@ public class NumbersToString extends AbstractNumbers {
         return sb.toString();
     }
 
-    private String tisyachi(int h, int t, int u) {
+    private String thousands(int t, int u) {
         String result = "тысяч";
         if (t == 0 || t > 1) {
             switch (u) {
