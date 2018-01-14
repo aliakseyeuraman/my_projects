@@ -19,69 +19,31 @@ public class NumbersToString extends AbstractNumbers {
     /**
      * set fields from txt file
      */
-    private void setFields() { //TODO: "Delete copy-paste code!"
+    private void setFields() {
         String s1 = fileReader.read().get(0);
         String s2 = fileReader.read().get(1);
         String s3 = fileReader.read().get(2);
         String s4 = fileReader.read().get(3);
         String s5 = fileReader.read().get(4);
+        set(units, s1);
+        set(ten, s2);
+        set(decades, s3);
+        set(hundreds, s4);
+        set(zeros, s5);
+    }
+
+    private void set(ArrayList arrayList, String s) {
         int i = 0;
-        for (int j = 0; j < s1.length(); j++) {
-            if (s1.charAt(j) == ',') {
+        for (int j = 0; j < s.length(); j++) {
+            if (s.charAt(j) == ',') {
                 if (j > i) {
-                    units.add(s1.substring(i, j));
+                    arrayList.add(s.substring(i, j));
                 }
                 i = j + 1;
             }
         }
-        if (i < s1.length()) {
-            units.add(s1.substring(i));
-        }
-
-        for (int j = 0; j < s2.length(); j++) {
-            if (s2.charAt(j) == ',') {
-                if (j > i) {
-                    ten.add(s2.substring(i, j));
-                }
-                i = j + 1;
-            }
-        }
-        if (i < s2.length()) {
-            ten.add(s2.substring(i));
-        }
-
-        for (int j = 0; j < s3.length(); j++) {
-            if (s3.charAt(j) == ',') {
-                if (j > i) {
-                    decades.add(s3.substring(i, j));
-                }
-                i = j + 1;
-            }
-        }
-        if (i < s3.length()) {
-            decades.add(s3.substring(i));
-        }
-        for (int j = 0; j < s4.length(); j++) {
-            if (s4.charAt(j) == ',') {
-                if (j > i) {
-                    hundreds.add(s4.substring(i, j));
-                }
-                i = j + 1;
-            }
-        }
-        if (i < s4.length()) {
-            hundreds.add(s4.substring(i));
-        }
-        for (int j = 0; j < s5.length(); j++) {
-            if (s5.charAt(j) == ',') {
-                if (j > i) {
-                    zeros.add(s5.substring(i, j));
-                }
-                i = j + 1;
-            }
-        }
-        if (i < s5.length()) {
-            zeros.add(s5.substring(i));
+        if (i < s.length()) {
+            arrayList.add(s.substring(i));
         }
     }
 

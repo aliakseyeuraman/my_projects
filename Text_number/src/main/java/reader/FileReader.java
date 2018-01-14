@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * class for reading information from file
  */
 public class FileReader {
-    private static final String FILE_PATH = "A:\\Java\\Text_number\\src\\main\\resources\\Example";
+    private static final String FILE_PATH = ".\\src\\main\\resources\\Example";
     private ArrayList<String> text = new ArrayList<>();
 
     public ArrayList<String> read() {
