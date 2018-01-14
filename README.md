@@ -1,4 +1,6 @@
 # my_projects
 In this repository, I post my projects on JAVA!
 
-'Text_number'program converts numbers to a string form, for example 4 in "χεςϋπε". Supports only Russian language!
+'Text_number'program converts numbers to a string form, for example 4 in "Ρ‡ΠµΡ‚Ρ‹Ρ€Πµ". Supports only Russian language!
+
+
